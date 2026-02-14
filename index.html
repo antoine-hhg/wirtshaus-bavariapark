@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Wirtshaus am Bavariapark | Bayerisch in München</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+            background-color: #fcfcf9;
+            color: #2c2c2c;
+            line-height: 1.6;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+
+        h1, h2, h3, h4, .logo, .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .section-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: 0.8rem;
+            color: #b59d7a;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 4rem;
+        }
+
+        /* Header - Fixed with hamburger menu */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(44, 44, 44, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            line-height: 1.2;
+            max-width: 400px;
+        }
+
+        .logo span {
+            font-weight: 600;
+            color: #b59d7a;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(44, 44, 44, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: #b59d7a;
+        }
+
+        .desktop-nav {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .desktop-nav a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .desktop-nav a:hover {
+            color: #b59d7a;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            filter: brightness(0.85);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 25%;
+            left: 10%;
+            color: white;
+            max-width: 700px;
+        }
+
+        .hero-pre-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: #b59d7a;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title span {
+            font-weight: 600;
+            color: #b59d7a;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-address {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: #b59d7a;
+        }
+
+        /* Welcome Section */
+        .welcome {
+            padding: 8rem 4rem;
+            background-color: #fcfcf9;
+        }
+
+        .welcome-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .welcome-text {
+            padding-right: 2rem;
+        }
+
+        .welcome-text h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: #2c2c2c;
+            line-height: 1.2;
+        }
+
+        .welcome-text .highlight {
+            color: #b59d7a;
+            font-weight: 500;
+        }
+
+        .welcome-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #4a4a4a;
+        }
+
+        .welcome-signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-style: italic;
+            color: #b59d7a;
+            margin-top: 2rem;
+        }
+
+        .welcome-image {
+            position: relative;
+            height: 600px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #2c2c2c 0%, #4a4a4a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.3);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-radius: 2px;
+        }
+
+        /* Info Bar */
+        .info-bar {
+            background-color: #2c2c2c;
+            color: white;
+            padding: 3rem 4rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            text-align: center;
+        }
+
+        .info-item h4 {
+            font-size: 0.8rem;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #b59d7a;
+            margin-bottom: 1rem;
+        }
+
+        .info-item p {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            font-weight: 300;
+        }
+
+        .info-item .note {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-top: 0.5rem;
+        }
+
+        /* Menu Preview */
+        .menu-preview {
+            padding: 8rem 4rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header .separator {
+            width: 60px;
+            height: 1px;
+            background-color: #b59d7a;
+            margin: 1.5rem auto;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .menu-category {
+            text-align: center;
+            padding: 2rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(181, 157, 122, 0.1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .menu-category:hover {
+            border-color: rgba(181, 157, 122, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .menu-category h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: #b59d7a;
+        }
+
+        .menu-category p {
+            font-size: 0.85rem;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #4a4a4a;
+        }
+
+        /* Menu Popup */
+        .menu-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .menu-popup.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background-color: white;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .menu-popup.active .popup-content {
+            transform: scale(1);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #2c2c2c;
+            transition: color 0.3s;
+        }
+
+        .popup-close:hover {
+            color: #b59d7a;
+        }
+
+        .popup-title {
+            font-size: 2rem;
+            color: #b59d7a;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .menu-item-name {
+            font-weight: 500;
+        }
+
+        .menu-item-price {
+            color: #b59d7a;
+            font-weight: 400;
+        }
+
+        .menu-item-desc {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: -0.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .download-menu {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            border: 1px solid #b59d7a;
+            color: #b59d7a;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .download-menu:hover {
+            background-color: #b59d7a;
+            color: white;
+        }
+
+        /* Mittagskarte und Vegi-Vegan als zusätzliche Menü-Kategorien */
+        .menu-grid-large {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .menu-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(181, 157, 122, 0.1);
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .menu-card:hover {
+            border-color: rgba(181, 157, 122, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .menu-card h3 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: #b59d7a;
+        }
+
+        .menu-card p {
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-card .note {
+            font-size: 0.9rem;
+            color: #777;
+            font-style: italic;
+        }
+
+        /* Map Section */
+        .map-section {
+            position: relative;
+            height: 600px;
+            width: 100%;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            filter: grayscale(100%);
+            transition: filter 0.5s;
+        }
+
+        .map-container iframe:hover {
+            filter: grayscale(0%);
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 2rem;
+            left: 4rem;
+            background: rgba(255,255,255,0.95);
+            padding: 2rem;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .map-overlay h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #2c2c2c;
+        }
+
+        .map-overlay p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #4a4a4a;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .map-overlay .address {
+            font-weight: 500;
+            color: #b59d7a;
+            margin: 1rem 0;
+        }
+
+        .transport-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .transport-list li {
+            margin-bottom: 0.5rem;
+            border-left: 2px solid #b59d7a;
+            padding-left: 1rem;
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 8rem 4rem;
+            background-color: #2c2c2c;
+            color: white;
+        }
+
+        .gallery .section-header h2 {
+            color: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item .image-placeholder {
+            background: linear-gradient(45deg, #3a3a3a 0%, #2c2c2c 100%);
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover .image-placeholder {
+            transform: scale(1.05);
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 8rem 4rem;
+            background-color: #fcfcf9;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-radius: 2px;
+            transition: transform 0.3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .review-stars {
+            color: #b59d7a;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            font-size: 1rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #4a4a4a;
+        }
+
+        .review-author {
+            font-weight: 600;
+            color: #2c2c2c;
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .review-platform {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #b59d7a;
+        }
+
+        .tripadvisor-badge {
+            background: #00af87;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 2px;
+            font-size: 0.7rem;
+            display: inline-block;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 8rem 4rem;
+            background-color: #fcfcf9;
+            border-top: 1px solid rgba(181,157,122,0.2);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: #2c2c2c;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #4a4a4a;
+        }
+
+        .about-highlight {
+            background-color: #2c2c2c;
+            color: white;
+            padding: 2rem;
+            border-left: 3px solid #b59d7a;
+        }
+
+        .about-highlight p {
+            color: rgba(255,255,255,0.8);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .about-highlight .author {
+            color: #b59d7a;
+            font-size: 1rem;
+            text-align: right;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 8rem 4rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .contact-detail {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .contact-detail strong {
+            color: #b59d7a;
+            font-weight: 500;
+            min-width: 80px;
+            display: inline-block;
+        }
+
+        .contact-detail a {
+            color: #2c2c2c;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .contact-detail a:hover {
+            border-bottom-color: #b59d7a;
+        }
+
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #2c2c2c;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #b59d7a;
+        }
+
+        .opening-hours {
+            background-color: #f5f5f0;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c2c2c;
+            color: white;
+            padding: 3rem 4rem;
+            text-align: center;
+            border-top: 1px solid rgba(181,157,122,0.2);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #b59d7a;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .menu-grid-large {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .welcome-grid,
+            .contact-grid,
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 2rem;
+            }
+            
+            .desktop-nav {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+                max-width: 200px;
+            }
+            
+            .hero-content {
+                left: 5%;
+                right: 5%;
+                bottom: 15%;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .welcome,
+            .menu-preview,
+            .gallery,
+            .contact,
+            .about-section,
+            .reviews-section {
+                padding: 4rem 2rem;
+            }
+            
+            .welcome-text h2 {
+                font-size: 2rem;
+            }
+            
+            .welcome-image {
+                height: 400px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item {
+                height: 300px;
+            }
+            
+            .map-section {
+                height: 500px;
+            }
+            
+            .map-overlay {
+                position: relative;
+                top: 0;
+                left: 0;
+                max-width: 100%;
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .footer-links {
+                gap: 1rem;
+                flex-direction: column;
+            }
+            
+            .popup-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .popup-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-content {
+                bottom: 20%;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .contact-grid {
+                gap: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">Wirtshaus <span>am Bavariapark</span></a>
+        
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <nav class="desktop-nav">
+            <a href="#welcome">Willkommen</a>
+            <a href="#menu">Speisekarte</a>
+            <a href="#mittag">Mittagskarte</a>
+            <a href="#veggie">Vegi-Vegan</a>
+            <a href="#gallery">Galerie</a>
+            <a href="#reviews">Bewertungen</a>
+            <a href="#about">Über uns</a>
+            <a href="#contact">Kontakt</a>
+        </nav>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#welcome" onclick="closeMenu()">Willkommen</a>
+            <a href="#menu" onclick="closeMenu()">Speisekarte</a>
+            <a href="#mittag" onclick="closeMenu()">Mittagskarte</a>
+            <a href="#veggie" onclick="closeMenu()">Vegi-Vegan</a>
+            <a href="#gallery" onclick="closeMenu()">Galerie</a>
+            <a href="#reviews" onclick="closeMenu()">Bewertungen</a>
+            <a href="#about" onclick="closeMenu()">Über uns</a>
+            <a href="#contact" onclick="closeMenu()">Kontakt</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-pre-title">Seit 1985</div>
+            <h1 class="hero-title">Wirtshaus <span>am Bavariapark</span></h1>
+            <div class="hero-subtitle">Traditionelle bayerische Küche an der Theresienhöhe</div>
+            <div class="hero-address">Theresienhöhe 15 · 80339 München</div>
+        </div>
+    </section>
+
+    <section id="welcome" class="welcome">
+        <div class="container">
+            <div class="welcome-grid">
+                <div class="welcome-text">
+                    <div class="section-subtitle">Grüß Gott</div>
+                    <h2>Willkommen im <span class="highlight">Wirtshaus am Bavariapark</span></h2>
+                    <p>Direkt an der Theresienwiese gelegen, bewirten wir unsere Gäste seit 1985 mit traditioneller bayerischer Küche und herzlicher Gastlichkeit. Unser Wirtshaus ist der ideale Ort für eine gemütliche Einkehr nach einem Spaziergang im Bavariapark oder vor einem Besuch auf dem Oktoberfest.</p>
+                    <p>Unsere Köche bereiten täglich frische bayerische Spezialitäten zu – vom knusprigen Schweinsbraten bis zu den hausgemachten Knödeln. Dazu servieren wir Ihnen eine große Auswahl an bayerischen Bieren vom Fass.</p>
+                    <p>Alle Speisen sind auch zum Mitnehmen erhältlich. Wir arrangieren gerne Ihre Familienfeiern, Jubiläen und Gesellschaften. Ab 20 Personen bieten wir einen Partyservice an.</p>
+                    <div class="welcome-signature">Ihr Wirtshaus-Team</div>
+                </div>
+                <div class="welcome-image">
+                    <div class="image-placeholder">Wirtshaus Innenansicht</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-bar">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>Öffnungszeiten</h4>
+                    <p>Montag – Sonntag</p>
+                    <p>11:00 – 23:00 Uhr</p>
+                    <div class="note">Warme Küche bis 22:00</div>
+                </div>
+                <div class="info-item">
+                    <h4>Kontakt & Reservierung</h4>
+                    <p>089 / 123 456 78</p>
+                    <p>info@wirtshaus-bavariapark.de</p>
+                    <div class="note">Tischreservierung erbeten</div>
+                </div>
+                <div class="info-item">
+                    <h4>Partyservice</h4>
+                    <p>Ab 20 Personen</p>
+                    <p>Auf Anfrage</p>
+                    <div class="note">Individuelle Menüs</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-preview">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Unsere bayerischen Spezialitäten</div>
+                <h2>Speisekarte</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-category" onclick="showMenu('brotzeiten')">
+                    <h3>Brotzeiten</h3>
+                    <p>Vorspeisen & Snacks</p>
+                </div>
+                <div class="menu-category" onclick="showMenu('schwein')">
+                    <h3>Schweinsgerichte</h3>
+                    <p>Vom Schwein</p>
+                </div>
+                <div class="menu-category" onclick="showMenu('rind')">
+                    <h3>Vom Rind & Kalb</h3>
+                    <p>Schnitzel & Co.</p>
+                </div>
+                <div class="menu-category" onclick="showMenu('spezialitaeten')">
+                    <h3>Bayerische Spezialitäten</h3>
+                    <p>Aus der Pfanne</p>
+                </div>
+            </div>
+
+            <div class="menu-grid-large">
+                <div class="menu-card" onclick="showMenu('mittag')">
+                    <h3>Mittagskarte</h3>
+                    <p>Montag – Freitag, 11:00 – 14:30 Uhr</p>
+                    <p class="note">Täglich wechselnde Gerichte</p>
+                </div>
+                <div class="menu-card" onclick="showMenu('veggie')">
+                    <h3>Vegi & Vegan</h3>
+                    <p>Vegetarische und vegane Spezialitäten</p>
+                    <p class="note">Auch zum Mitnehmen</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Popup -->
+    <div class="menu-popup" id="menuPopup">
+        <div class="popup-content">
+            <span class="popup-close" id="closePopup">×</span>
+            <h2 class="popup-title" id="popupTitle">Brotzeiten</h2>
+            <div id="popupItems"></div>
+            <div style="text-align: center;">
+                <a href="#" class="download-menu" id="downloadMenu">Speisekarte als PDF</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="map-section">
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2661.81982421875!2d11.5430556!3d48.1308333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4799fb7b9c9c9c9d%3A0x9c3b6f8b5e5b5b5b!2sTheresienh%C3%B6he%2015%2C%2080339%20M%C3%BCnchen!5e0!3m2!1sde!2sde!4v1645567890123!5m2!1sde!2sde" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="map-overlay">
+            <h4>Anfahrt</h4>
+            <p class="address">Theresienhöhe 15<br>80339 München</p>
+            <ul class="transport-list">
+                <li>U4/U5: Schwanthalerhöhe (5 Min.)</li>
+                <li>Tram 18/19: Theresienhöhe</li>
+                <li>Parkplätze in der Umgebung</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Einblicke</div>
+                <h2>Galerie</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="image-placeholder">Wirtshausstube</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder">Biergarten</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder">Schweinshaxe</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Gästestimmen</div>
+                <h2>Bewertungen</h2>
+                <div class="separator"></div>
+            </div>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <div class="review-text">"Das beste bayerische Wirtshaus in München! Die Schweinshaxe ist perfekt, der Service sehr freundlich. Absolut empfehlenswert."</div>
+                    <div class="review-author">Thomas W.</div>
+                    <div class="review-date">Februar 2026</div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <div class="review-text">"Wunderbare Atmosphäre direkt am Bavariapark. Die Käsespätzle sind ein Traum. Kommen seit Jahren gerne hierher."</div>
+                    <div class="review-author">Maria S.</div>
+                    <div class="review-date">Januar 2026</div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <div class="review-text">"Großartige bayerische Küche, faire Preise und ein sehr aufmerksames Team. Der Biergarten im Sommer ist wunderschön."</div>
+                    <div class="review-author">Klaus M.</div>
+                    <div class="review-date">Dezember 2025</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Unsere Geschichte</div>
+                <h2>Über uns</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Tradition seit 1985</h3>
+                    <p>Das Wirtshaus am Bavariapark wurde 1985 von der Familie Huber gegründet. Was als kleine Wirtschaft begann, entwickelte sich schnell zu einem beliebten Treffpunkt für Liebhaber traditioneller bayerischer Küche.</p>
+                    <p>Heute führen die Kinder der zweiten Generation das Wirtshaus mit der gleichen Hingabe und dem gleichen Respekt vor den traditionellen Rezepten. Unser Geheimnis? Einfache, hochwertige Zutaten aus der Region, perfekt zubereitet – und viel Gastfreundschaft.</p>
+                    <p>Unser Bier beziehen wir direkt von kleinen Brauereien aus Oberbayern, das Fleisch von Bauern aus der Umgebung.</p>
+                </div>
+                <div class="about-highlight">
+                    <p>"Das Wirtshaus am Bavariapark ist für mich mehr als ein Restaurant – es ist ein Stück Heimat. Hier schmeckt man die Leidenschaft und die Tradition in jedem Gericht."</p>
+                    <div class="author">— Bayerischer Rundfunk, 2025</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Kontakt</div>
+                <h2>Besuchen Sie uns</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Kontakt</h3>
+                    <div class="contact-detail">
+                        <strong>Adresse</strong> Theresienhöhe 15, 80339 München
+                    </div>
+                    <div class="contact-detail">
+                        <strong>Telefon</strong> <a href="tel:+498912345678">089 / 123 456 78</a>
+                    </div>
+                    <div class="contact-detail">
+                        <strong>Email</strong> <a href="mailto:info@wirtshaus-bavariapark.de">info@wirtshaus-bavariapark.de</a>
+                    </div>
+                    
+                    <div class="opening-hours">
+                        <h3 style="margin-top: 2rem;">Öffnungszeiten</h3>
+                        <p><strong>Montag – Sonntag</strong> 11:00 – 23:00 Uhr</p>
+                        <p>Warme Küche bis 22:00 Uhr</p>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" target="_blank">FB</a>
+                        <a href="#" target="_blank">IG</a>
+                    </div>
+                </div>
+                
+                <div style="background: #f5f5f5; padding: 2rem; border-radius: 2px;">
+                    <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Für Reservierungen und Partyservice kontaktieren Sie uns bitte telefonisch.</p>
+                    <p style="color: #b59d7a; font-size: 1.2rem; font-weight: 500;">Wir freuen uns auf Sie!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#welcome">Willkommen</a>
+            <a href="#menu">Speisekarte</a>
+            <a href="#gallery">Galerie</a>
+            <a href="#reviews">Bewertungen</a>
+            <a href="#about">Über uns</a>
+            <a href="#contact">Kontakt</a>
+            <a href="#">Impressum</a>
+            <a href="#">Datenschutz</a>
+        </div>
+        <div class="footer-copyright">
+            © 2026 Wirtshaus am Bavariapark · Theresienhöhe 15, 80339 München
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Menu Popup
+        const menuPopup = document.getElementById('menuPopup');
+        const closePopup = document.getElementById('closePopup');
+        const popupTitle = document.getElementById('popupTitle');
+        const popupItems = document.getElementById('popupItems');
+        const downloadMenu = document.getElementById('downloadMenu');
+        
+        const menuData = {
+            brotzeiten: {
+                title: 'Brotzeiten & Vorspeisen',
+                items: [
+                    { name: 'Obatzda mit Brezen', price: '€6,80', desc: 'Bayerischer Käse mit Zwiebeln, Butter und Schnittlauch' },
+                    { name: 'Fleischpflanzerl', price: '€5,90', desc: 'Hausgemachte Frikadellen mit Kartoffelsalat' },
+                    { name: 'Leberkässemmel', price: '€4,20', desc: 'Frischer Leberkäse mit süßem Senf' },
+                    { name: 'Radi mit Butter', price: '€5,50', desc: 'Frischer Rettich mit Butter und Brezen' }
+                ]
+            },
+            schwein: {
+                title: 'Schweinsgerichte',
+                items: [
+                    { name: 'Schweinshaxe', price: '€14,90', desc: 'Kross gebraten mit Kartoffelknödel und Krautsalat' },
+                    { name: 'Schweinsbraten', price: '€13,50', desc: 'Vom Schopf mit Biersauce, Semmelknödel und Kraut' },
+                    { name: 'Kasspatz\'n', price: '€12,80', desc: 'Geräucherter Kamm mit Sauerkraut und Kartoffelpüree' }
+                ]
+            },
+            rind: {
+                title: 'Vom Rind & Kalb',
+                items: [
+                    { name: 'Wiener Schnitzel', price: '€16,50', desc: 'Vom Kalb mit Preiselbeeren und Kartoffelsalat' },
+                    { name: 'Tafelspitz', price: '€15,80', desc: 'Gekochtes Rindfleisch mit Meerrettich und Gemüse' },
+                    { name: 'Rinderroulade', price: '€15,90', desc: 'Gefüllt mit Speck und Gewürzgurken, dazu Rotkraut und Knödel' }
+                ]
+            },
+            spezialitaeten: {
+                title: 'Bayerische Spezialitäten',
+                items: [
+                    { name: 'Käsespätzle', price: '€10,80', desc: 'Mit gerösteten Zwiebeln und gemischtem Salat' },
+                    { name: 'Bauernomelett', price: '€9,90', desc: 'Mit Speck, Zwiebeln und Kartoffeln' },
+                    { name: 'Münchner Weißwürste', price: '€9,50', desc: 'Zwei Paar mit süßem Senf und Brezen (nur vormittags)' }
+                ]
+            },
+            mittag: {
+                title: 'Mittagskarte',
+                items: [
+                    { name: 'Leberkäse mit Spiegelei', price: '€7,90', desc: 'Mit Kartoffelsalat' },
+                    { name: 'Putenschnitzel', price: '€8,90', desc: 'Mit Pommes und Salat' },
+                    { name: 'Käsespätzle', price: '€7,50', desc: 'Mit Röstzwiebeln' },
+                    { name: 'Bratwürste', price: '€7,80', desc: 'Mit Sauerkraut und Kartoffelpüree' },
+                    { name: 'Gemüsepfanne', price: '€6,90', desc: 'Mit Reis (vegetarisch)' }
+                ]
+            },
+            veggie: {
+                title: 'Vegi & Vegan',
+                items: [
+                    { name: 'Käsespätzle (vegetarisch)', price: '€10,80', desc: 'Mit gerösteten Zwiebeln' },
+                    { name: 'Gemüsepfanne mit Reis', price: '€9,90', desc: 'Saisonales Gemüse' },
+                    { name: 'Veganes Curry', price: '€9,50', desc: 'Mit Kokosmilch und Reis' },
+                    { name: 'Gemüsesuppe', price: '€5,90', desc: 'Mit Brot (vegan)' },
+                    { name: 'Bauernsalat (ohne Käse)', price: '€7,80', desc: 'vegan' }
+                ]
+            }
+        };
+        
+        function showMenu(category) {
+            const data = menuData[category];
+            popupTitle.textContent = data.title;
+            
+            let html = '';
+            data.items.forEach(item => {
+                html += `
+                    <div class="menu-item">
+                        <span class="menu-item-name">${item.name}</span>
+                        <span class="menu-item-price">${item.price}</span>
+                    </div>
+                    <div class="menu-item-desc">${item.desc}</div>
+                `;
+            });
+            
+            popupItems.innerHTML = html;
+            
+            downloadMenu.href = '#';
+            downloadMenu.textContent = `${data.title} als PDF`;
+            
+            menuPopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        closePopup.addEventListener('click', () => {
+            menuPopup.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === menuPopup) {
+                menuPopup.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        downloadMenu.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('PDF-Download würde hier starten.');
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                closeMenu();
+            });
+        });
+    </script>
+</body>
+</html>
